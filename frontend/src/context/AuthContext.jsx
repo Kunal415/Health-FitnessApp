@@ -1,0 +1,58 @@
+import React, { createContext, useContext, useState, useEffect } from "react";
+import api from "../api/axios";
+
+const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const checkUser = async () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                try {
+                    const { data } = await api.get("/users/me");
+                    setUser(data);
+                } catch (error) {
+                    console.error("Auth check failed", error);
+                    localStorage.removeItem("token");
+                }
+            }
+            setLoading(false);
+        };
+        checkUser();
+    }, []);
+
+    const login = async (email, password) => {
+        const formData = new FormData();
+        formData.append("username", email);
+        formData.append("password", password);
+
+        const { data } = await api.post("/auth/login", formData);
+        localStorage.setItem("token", data.access_token);
+
+        // Fetch user details immediately after login
+        const userRes = await api.get("/users/me");
+        setUser(userRes.data);
+    };
+
+    const register = async (email, password) => {
+        await api.post("/auth/register", { email, password });
+        // After register, auto login
+        await login(email, password);
+    };
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        setUser(null);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
