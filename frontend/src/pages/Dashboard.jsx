@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const Dashboard = () => {
@@ -61,6 +62,15 @@ const Dashboard = () => {
         <div style={{ minHeight: '100vh', paddingBottom: '2rem' }}>
             <Navbar />
             <div className="container animate-fade-in" style={{ paddingTop: '2rem' }}>
+
+                {/* Nutrition Call to Action */}
+                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1))', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🥗 Food Calorie Tracker</h2>
+                        <p style={{ color: 'var(--text-muted)' }}>Track your meals, calculate macros, and get personalized nutrition advice.</p>
+                    </div>
+                    <Link to="/nutrition" className="btn btn-primary">Open Tracker</Link>
+                </div>
 
                 {/* Stats Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>

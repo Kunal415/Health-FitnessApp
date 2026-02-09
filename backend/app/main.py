@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1 import auth, users, workouts
+from app.api.v1 import auth, users, workouts, nutrition_api
 from app.core import database
 from app.models import models
 
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["Users"])
 app.include_router(workouts.router, prefix="/api/v1/workouts", tags=["Workouts"])
+app.include_router(nutrition_api.router, prefix="/api/v1/nutrition", tags=["Nutrition"])
 
 @app.get("/")
 def read_root():

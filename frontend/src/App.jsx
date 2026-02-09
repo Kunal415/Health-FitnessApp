@@ -4,6 +4,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import NutritionTracker from './pages/NutritionTracker';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -25,6 +27,22 @@ function App() {
                         element={
                             <PrivateRoute>
                                 <Dashboard />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <PrivateRoute>
+                                <Profile />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/nutrition"
+                        element={
+                            <PrivateRoute>
+                                <NutritionTracker />
                             </PrivateRoute>
                         }
                     />

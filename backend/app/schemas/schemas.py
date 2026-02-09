@@ -27,7 +27,7 @@ class Workout(WorkoutBase):
     analysis: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # User Schemas
 class UserBase(BaseModel):
@@ -36,9 +36,23 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
+class UserUpdate(BaseModel):
+    age: Optional[int] = None
+    gender: Optional[str] = None
+    height: Optional[float] = None
+    weight: Optional[float] = None
+    medical_conditions: Optional[str] = None
+    goal: Optional[str] = None
+
 class User(UserBase):
     id: int
     is_active: bool
+    age: Optional[int] = None
+    gender: Optional[str] = None
+    height: Optional[float] = None
+    weight: Optional[float] = None
+    medical_conditions: Optional[str] = None
+    goal: Optional[str] = None
     workouts: List[Workout] = []
 
     class Config:

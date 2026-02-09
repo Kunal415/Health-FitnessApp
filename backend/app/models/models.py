@@ -11,6 +11,14 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
+    # Profile fields
+    age = Column(Integer, nullable=True)
+    gender = Column(String, nullable=True)
+    height = Column(Float, nullable=True) # in cm
+    weight = Column(Float, nullable=True) # in kg
+    medical_conditions = Column(String, nullable=True)
+    goal = Column(String, nullable=True) # e.g. "lose_weight", "gain_muscle", "maintain"
+
     workouts = relationship("Workout", back_populates="owner")
 
 class Workout(Base):

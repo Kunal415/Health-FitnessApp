@@ -30,6 +30,9 @@ const Navbar = () => {
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     {user ? (
                         <>
+                            <Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', marginRight: '1rem', fontWeight: 500 }}>Home</Link>
+                            <Link to="/nutrition" style={{ color: 'var(--text-muted)', textDecoration: 'none', marginRight: '1rem', fontWeight: 500 }}>Nutrition</Link>
+                            <Link to="/profile" style={{ color: 'var(--primary)', textDecoration: 'none', marginRight: '1rem', fontWeight: 500 }}>Profile</Link>
                             <span style={{ color: 'var(--text-muted)' }}>Hello, {user.email?.split('@')[0]}</span>
                             <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
                                 Logout
