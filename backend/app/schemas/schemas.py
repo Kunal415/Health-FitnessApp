@@ -45,6 +45,11 @@ class UserUpdate(BaseModel):
     goal: Optional[str] = None
     experience_level: Optional[str] = None
     current_diet: Optional[str] = None
+    email: Optional[str] = None
+
+class UserPasswordUpdate(BaseModel):
+    current_password: str
+    new_password: str
 
 class User(UserBase):
     id: int

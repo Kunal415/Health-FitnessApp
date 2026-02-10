@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+    const { user } = useAuth();
     const [workouts, setWorkouts] = useState([]);
     const [stats, setStats] = useState({ count: 0, duration: 0, calories: 0 });
 
@@ -62,6 +64,9 @@ const Dashboard = () => {
         <div style={{ minHeight: '100vh', paddingBottom: '2rem' }}>
             <Navbar />
             <div className="container animate-fade-in" style={{ paddingTop: '2rem' }}>
+                <h1 style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>
+                    Hello, <span style={{ color: '#38bdf8' }}>{user?.email?.split('@')[0]}!</span>
+                </h1>
 
                 {/* Nutrition Call to Action */}
                 <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1))', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

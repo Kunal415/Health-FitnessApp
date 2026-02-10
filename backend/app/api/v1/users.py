@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from sqlalchemy.orm import Session
 from app.api import deps
@@ -11,7 +11,7 @@ router = APIRouter()
 def read_users_me(current_user: models.User = Depends(deps.get_current_user)):
     return current_user
 
-from app.core import advisor
+from app.core import advisor, security
 import traceback
 
 @router.put("/me", response_model=schemas.User)
@@ -24,6 +24,17 @@ def update_user_me(
     Update own user.
     """
     user_data = user_in.dict(exclude_unset=True)
+    
+    # Handle email update specifically to check for duplicates
+    if "email" in user_data:
+        new_email = user_data["email"]
+        if new_email != current_user.email:
+            existing_user = db.query(models.User).filter(models.User.email == new_email).first()
+            if existing_user:
+                raise HTTPException(status_code=400, detail="Email already registered")
+            current_user.email = new_email
+        del user_data["email"] # Remove from dict so we don't try to set it again in the loop if not needed
+    
     for field, value in user_data.items():
         setattr(current_user, field, value)
 
@@ -31,6 +42,24 @@ def update_user_me(
     db.commit()
     db.refresh(current_user)
     return current_user
+
+@router.put("/me/password", response_model=schemas.Msg)
+def update_password_me(
+    password_in: schemas.UserPasswordUpdate,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_user)
+):
+    """
+    Update own password.
+    """
+    if not security.verify_password(password_in.current_password, current_user.hashed_password):
+        raise HTTPException(status_code=400, detail="Incorrect current password")
+    
+    hashed_password = security.get_password_hash(password_in.new_password)
+    current_user.hashed_password = hashed_password
+    db.add(current_user)
+    db.commit()
+    return {"message": "Password updated successfully"}
 
 @router.get("/me/advice")
 def get_user_advice(

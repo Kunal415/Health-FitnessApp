@@ -40,7 +40,9 @@ const Navbar = () => {
                             <Link to="/profile" className={`nav-link ${isActive('/profile')}`}>Profile</Link>
 
                             <div style={{ marginLeft: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Hello, {user.email?.split('@')[0]}</span>
+                                <Link to="/settings" className={`nav-link ${isActive('/settings')}`} style={{ marginRight: 0 }}>
+                                    My Account
+                                </Link>
                                 <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
                                     Logout
                                 </button>
