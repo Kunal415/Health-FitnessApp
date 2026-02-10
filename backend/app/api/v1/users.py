@@ -65,3 +65,16 @@ def get_user_advice(
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(deps.get_db), current_user: models.User = Depends(deps.get_current_user)):
     users = db.query(models.User).offset(skip).limit(limit).all()
     return users
+
+@router.delete("/me", response_model=schemas.Msg)
+def delete_user_me(
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_user)
+):
+    # Delete user's workouts first manually since we don't have ON DELETE CASCADE set up in DB
+    db.query(models.Workout).filter(models.Workout.owner_id == current_user.id).delete()
+    
+    # Delete user
+    db.delete(current_user)
+    db.commit()
+    return {"message": "User deleted successfully"}

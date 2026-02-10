@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import NutritionTracker from './pages/NutritionTracker';
@@ -10,7 +12,7 @@ import NutritionTracker from './pages/NutritionTracker';
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
 
-    if (loading) return <div>Loading...</div>; // Could be a nice spinner
+    if (loading) return <div>Loading...</div>;
 
     return user ? children : <Navigate to="/login" />;
 };
@@ -22,6 +24,8 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route
                         path="/"
                         element={

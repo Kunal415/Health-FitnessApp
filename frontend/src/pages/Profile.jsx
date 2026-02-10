@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import api from '../api/axios';
 
 const Profile = () => {
-    const { user, updateProfile } = useAuth();
+    const { user, updateProfile, deleteAccount } = useAuth();
     const [formData, setFormData] = useState({
         age: '',
         gender: '',
@@ -63,6 +63,16 @@ const Profile = () => {
         }
     };
 
+    const handleDelete = async () => {
+        if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+            try {
+                await deleteAccount();
+            } catch (error) {
+                setMsg("Failed to delete account");
+            }
+        }
+    };
+
     return (
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
@@ -111,6 +121,23 @@ const Profile = () => {
                                 Save Profile
                             </button>
                         </form>
+
+                        <div style={{ marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                            <h3 style={{ color: '#ef4444', fontSize: '1rem', marginBottom: '0.5rem', fontWeight: '600' }}>Danger Zone</h3>
+                            <button
+                                type="button"
+                                onClick={handleDelete}
+                                className="btn"
+                                style={{
+                                    width: '100%',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                    color: '#ef4444',
+                                    border: '1px solid rgba(239, 68, 68, 0.5)'
+                                }}
+                            >
+                                Delete Account
+                            </button>
+                        </div>
                     </div>
 
                     {/* Advice Section */}
