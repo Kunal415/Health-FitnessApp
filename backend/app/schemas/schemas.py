@@ -54,6 +54,7 @@ class UserPasswordUpdate(BaseModel):
 class User(UserBase):
     id: int
     is_active: bool
+    is_admin: bool = False
     age: Optional[int] = None
     gender: Optional[str] = None
     height: Optional[float] = None

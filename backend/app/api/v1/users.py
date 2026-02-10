@@ -108,4 +108,49 @@ def delete_user_me(
     # Delete user
     db.delete(current_user)
     db.commit()
+    db.delete(current_user)
+    db.commit()
     return {"message": "User deleted successfully"}
+
+# --- Admin Routes ---
+
+@router.get("/admin/users", response_model=List[schemas.User])
+def read_all_users_admin(
+    skip: int = 0, 
+    limit: int = 100, 
+    db: Session = Depends(deps.get_db), 
+    current_user: models.User = Depends(deps.get_current_user)
+):
+    """
+    Get all users (Admin only).
+    """
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    users = db.query(models.User).offset(skip).limit(limit).all()
+    return users
+
+@router.get("/admin/stats")
+def read_admin_stats(
+    db: Session = Depends(deps.get_db), 
+    current_user: models.User = Depends(deps.get_current_user)
+):
+    """
+    Get admin dashboard stats (Admin only).
+    """
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    total_users = db.query(models.User).count()
+    total_workouts = db.query(models.Workout).count()
+    
+    # Simple distribution of experience levels
+    experience_dist = {}
+    for level in ["beginner", "intermediate", "advanced"]:
+        count = db.query(models.User).filter(models.User.experience_level == level).count()
+        experience_dist[level] = count
+
+    return {
+        "total_users": total_users,
+        "total_workouts": total_workouts,
+        "experience_levels": experience_dist
+    }

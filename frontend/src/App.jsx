@@ -9,6 +9,8 @@ import Settings from './pages/Settings';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import NutritionTracker from './pages/NutritionTracker';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -26,7 +28,10 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route
                         path="/"
                         element={

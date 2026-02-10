@@ -58,6 +58,11 @@ const Login = () => {
           <p style={{ marginTop: '0.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
             Don't have an account? <Link to="/register" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Sign up</Link>
           </p>
+          <div style={{ marginTop: '2rem', borderTop: '1px solid var(--glass-border)', paddingTop: '1rem', textAlign: 'center' }}>
+            <Link to="/admin/login" style={{ color: '#fca5a5', textDecoration: 'none', fontSize: '0.9rem', opacity: 0.8 }}>
+              🔒 Admin Login
+            </Link>
+          </div>
         </div>
       </div>
     </div>
