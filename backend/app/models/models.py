@@ -18,6 +18,8 @@ class User(Base):
     weight = Column(Float, nullable=True) # in kg
     medical_conditions = Column(String, nullable=True)
     goal = Column(String, nullable=True) # e.g. "lose_weight", "gain_muscle", "maintain"
+    experience_level = Column(String, nullable=True) # beginner, intermediate, advanced
+    current_diet = Column(String, nullable=True) # e.g. vegan, keto, omnivore, etc.
 
     workouts = relationship("Workout", back_populates="owner")
 

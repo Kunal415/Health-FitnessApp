@@ -52,6 +52,8 @@ def get_user_advice(
             weight=current_user.weight,
             medical_conditions=current_user.medical_conditions,
             goal=current_user.goal,
+            experience_level=current_user.experience_level,
+            current_diet=current_user.current_diet,
             workouts=[]
         )
         return advisor.get_advice(user_schema)

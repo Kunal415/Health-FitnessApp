@@ -172,3 +172,40 @@ option {
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
+
+/* Navbar Links */
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-block;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  color: var(--text-main);
+}
+
+.nav-link.active {
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}

@@ -1,14 +1,19 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = () => {
         logout();
         navigate('/login');
+    };
+
+    const isActive = (path) => {
+        return location.pathname === path ? 'active' : '';
     };
 
     return (
@@ -27,16 +32,19 @@ const Navbar = () => {
                         FitTrack
                     </h2>
                 </Link>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
                     {user ? (
                         <>
-                            <Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', marginRight: '1rem', fontWeight: 500 }}>Home</Link>
-                            <Link to="/nutrition" style={{ color: 'var(--text-muted)', textDecoration: 'none', marginRight: '1rem', fontWeight: 500 }}>Nutrition</Link>
-                            <Link to="/profile" style={{ color: 'var(--primary)', textDecoration: 'none', marginRight: '1rem', fontWeight: 500 }}>Profile</Link>
-                            <span style={{ color: 'var(--text-muted)' }}>Hello, {user.email?.split('@')[0]}</span>
-                            <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
-                                Logout
-                            </button>
+                            <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
+                            <Link to="/nutrition" className={`nav-link ${isActive('/nutrition')}`}>Nutrition</Link>
+                            <Link to="/profile" className={`nav-link ${isActive('/profile')}`}>Profile</Link>
+
+                            <div style={{ marginLeft: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Hello, {user.email?.split('@')[0]}</span>
+                                <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+                                    Logout
+                                </button>
+                            </div>
                         </>
                     ) : (
                         <>

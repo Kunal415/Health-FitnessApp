@@ -43,6 +43,8 @@ class UserUpdate(BaseModel):
     weight: Optional[float] = None
     medical_conditions: Optional[str] = None
     goal: Optional[str] = None
+    experience_level: Optional[str] = None
+    current_diet: Optional[str] = None
 
 class User(UserBase):
     id: int
@@ -53,6 +55,8 @@ class User(UserBase):
     weight: Optional[float] = None
     medical_conditions: Optional[str] = None
     goal: Optional[str] = None
+    experience_level: Optional[str] = None
+    current_diet: Optional[str] = None
     workouts: List[Workout] = []
 
     class Config:

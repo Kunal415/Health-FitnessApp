@@ -12,6 +12,8 @@ const Profile = () => {
         weight: '',
         medical_conditions: '',
         goal: 'maintain',
+        experience_level: 'beginner',
+        current_diet: '',
     });
     const [advice, setAdvice] = useState(null);
     const [msg, setMsg] = useState('');
@@ -26,6 +28,8 @@ const Profile = () => {
                 weight: user.weight || '',
                 medical_conditions: user.medical_conditions || '',
                 goal: user.goal || 'maintain',
+                experience_level: user.experience_level || 'beginner',
+                current_diet: user.current_diet || '',
             });
             fetchAdvice();
         }
@@ -117,6 +121,24 @@ const Profile = () => {
                                     <option value="gain_muscle">Gain Muscle</option>
                                 </select>
                             </div>
+                            <div className="form-group">
+                                <label>Gym Experience</label>
+                                <select name="experience_level" value={formData.experience_level} onChange={handleChange}>
+                                    <option value="beginner">Beginner (≤ 1 year)</option>
+                                    <option value="intermediate">Intermediate (1-3 years)</option>
+                                    <option value="advanced">Advanced (&gt; 3 years)</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Current Diet</label>
+                                <input
+                                    type="text"
+                                    name="current_diet"
+                                    value={formData.current_diet}
+                                    onChange={handleChange}
+                                    placeholder="e.g. Vegetarian, Keto, Omnivore"
+                                />
+                            </div>
                             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                 Save Profile
                             </button>
@@ -148,11 +170,11 @@ const Profile = () => {
                             <div className="animate-fade-in">
                                 <div style={{ marginBottom: '1.5rem' }}>
                                     <h3 style={{ color: 'var(--primary)', marginBottom: '0.5rem' }}>Exercise Plan</h3>
-                                    <p style={{ lineHeight: '1.6', color: 'var(--text-muted)' }}>{advice.exercise}</p>
+                                    <div style={{ lineHeight: '1.6', color: 'var(--text-muted)', whiteSpace: 'pre-wrap' }}>{advice.exercise}</div>
                                 </div>
                                 <div>
                                     <h3 style={{ color: 'var(--secondary)', marginBottom: '0.5rem' }}>Nutrition Plan</h3>
-                                    <p style={{ lineHeight: '1.6', color: 'var(--text-muted)' }}>{advice.nutrition}</p>
+                                    <div style={{ lineHeight: '1.6', color: 'var(--text-muted)', whiteSpace: 'pre-wrap' }}>{advice.nutrition}</div>
                                 </div>
                             </div>
                         ) : (
