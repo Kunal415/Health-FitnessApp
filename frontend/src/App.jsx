@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import NutritionTracker from './pages/NutritionTracker';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import AboutApp from './pages/AboutApp';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -61,6 +62,14 @@ function App() {
                         element={
                             <PrivateRoute>
                                 <NutritionTracker />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/about"
+                        element={
+                            <PrivateRoute>
+                                <AboutApp />
                             </PrivateRoute>
                         }
                     />

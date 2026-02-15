@@ -35,6 +35,7 @@ const Navbar = () => {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     {user ? (
                         <>
+                            <Link to="/about" className={`nav-link ${isActive('/about')}`}>About</Link>
                             <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
                             <Link to="/nutrition" className={`nav-link ${isActive('/nutrition')}`}>Nutrition</Link>
                             <Link to="/profile" className={`nav-link ${isActive('/profile')}`}>Profile</Link>

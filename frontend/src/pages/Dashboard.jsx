@@ -65,7 +65,7 @@ const Dashboard = () => {
             <Navbar />
             <div className="container animate-fade-in" style={{ paddingTop: '2rem' }}>
                 <h1 style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>
-                    Hello, <span style={{ color: '#38bdf8' }}>{user?.email?.split('@')[0]}!</span>
+                    Hello, <span style={{ background: 'linear-gradient(to right, #f87171, #f472b6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>{user?.email?.split('@')[0]}!</span>
                 </h1>
 
                 {/* Nutrition Call to Action */}
