@@ -29,7 +29,7 @@ const Register = () => {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div className="glass-panel animate-fade-in" style={{ padding: '3rem', width: '100%', maxWidth: '400px' }}>
+                <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '400px' }}>
                     <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Create Account</h2>
                     {error && <div style={{ color: '#fca5a5', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
                     <form onSubmit={handleSubmit}>

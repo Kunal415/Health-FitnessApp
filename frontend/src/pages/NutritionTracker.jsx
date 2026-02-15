@@ -74,7 +74,7 @@ const NutritionTracker = () => {
                 <div style={{ width: '100%', maxWidth: '800px' }}>
 
                     {step === 1 && (
-                        <div className="glass-panel animate-fade-in" style={{ padding: '3rem', textAlign: 'center' }}>
+                        <div className="glass-panel animate-fade-in" style={{ textAlign: 'center' }}>
                             <h2 style={{ marginBottom: '2rem' }}>How many meals do you eat per day?</h2>
                             <form onSubmit={handleNumMealsSubmit}>
                                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', alignItems: 'center', marginBottom: '2rem' }}>
@@ -94,7 +94,7 @@ const NutritionTracker = () => {
 
                             <div style={{ display: 'grid', gap: '2rem' }}>
                                 {meals.map((meal, mIndex) => (
-                                    <div key={mIndex} className="glass-panel" style={{ padding: '1.5rem' }}>
+                                    <div key={mIndex} className="glass-panel">
                                         <h3 style={{ marginBottom: '1rem', color: 'var(--primary)' }}>{meal.name}</h3>
                                         {meal.items.map((item, iIndex) => (
                                             <div key={iIndex} style={{ display: 'flex', gap: '1rem', marginBottom: '0.5rem' }}>
@@ -147,7 +147,7 @@ const NutritionTracker = () => {
                             <h2 style={{ marginBottom: '2rem', textAlign: 'center' }}>Nutrition Analysis</h2>
 
                             {/* Summary Cards */}
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
                                 <div className="glass-panel" style={{ padding: '1rem', textAlign: 'center', borderColor: 'var(--primary)' }}>
                                     <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Calories</div>
                                     <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{Math.round(analysis.calories)}</div>
@@ -168,7 +168,7 @@ const NutritionTracker = () => {
 
                             {/* Suggestions */}
                             {analysis.suggestions && analysis.suggestions.length > 0 && (
-                                <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem', borderLeft: '4px solid #facc15' }}>
+                                <div className="glass-panel" style={{ marginBottom: '2rem', borderLeft: '4px solid #facc15' }}>
                                     <h3 style={{ marginBottom: '1rem' }}>Suggestions</h3>
                                     <ul style={{ paddingLeft: '1.5rem' }}>
                                         {analysis.suggestions.map((s, i) => (
@@ -182,7 +182,7 @@ const NutritionTracker = () => {
                             <h3 style={{ marginBottom: '1rem' }}>Meal Breakdown</h3>
                             <div style={{ display: 'grid', gap: '1.5rem' }}>
                                 {analysis.meals.map((meal, i) => (
-                                    <div key={i} className="glass-panel" style={{ padding: '1.5rem' }}>
+                                    <div key={i} className="glass-panel">
                                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                                             <h4>{meal.name}</h4>
                                             <div style={{ fontWeight: 'bold', color: 'var(--primary)' }}>{Math.round(meal.calories)} cal</div>

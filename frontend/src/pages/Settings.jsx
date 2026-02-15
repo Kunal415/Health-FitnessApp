@@ -84,7 +84,7 @@ const Settings = () => {
                     )}
 
                     {/* Email Update Section */}
-                    <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                    <div className="glass-panel" style={{ marginBottom: '2rem' }}>
                         <h2 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>Personal Information</h2>
                         <form onSubmit={handleEmailUpdate}>
                             <div className="form-group">
@@ -103,7 +103,7 @@ const Settings = () => {
                     </div>
 
                     {/* Password Update Section */}
-                    <div className="glass-panel" style={{ padding: '2rem' }}>
+                    <div className="glass-panel">
                         <h2 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>Change Password</h2>
                         <form onSubmit={handlePasswordUpdate}>
                             <div className="form-group">

@@ -10,7 +10,7 @@ const AboutApp = () => {
                     Welcome to <span style={{ color: '#38bdf8' }}>FitTrack</span>
                 </h1>
 
-                <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))' }}>
+                <div className="glass-panel" style={{ marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))' }}>
                     <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                         <h2 style={{ fontSize: '1.8rem', marginBottom: '1rem' }}>Your Journey to a Healthier You Starts Here</h2>
                         <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.1rem', maxWidth: '800px', margin: '0 auto' }}>

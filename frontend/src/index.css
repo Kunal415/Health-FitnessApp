@@ -8,6 +8,13 @@
   --text-muted: #94a3b8;
   --glass-border: rgba(255, 255, 255, 0.1);
   --font-family: 'Inter', sans-serif;
+  --panel-padding: 2rem;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --panel-padding: 1.25rem;
+  }
 }
 
 * {
@@ -37,6 +44,7 @@ body {
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  padding: var(--panel-padding);
 }
 
 .container {
@@ -208,4 +216,77 @@ option {
 
 .nav-link.active::after {
   width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .glass-panel {
+    padding: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Make buttons auto width if they are inline explicitly */
+  .btn-inline {
+    width: auto;
+    margin-bottom: 0;
+  }
+}
+
+/* Navbar Responsive */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+/* Responsive Flex Utility */
+.responsive-flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .responsive-flex-row {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    align-items: stretch;
+    /* Stretch children like buttons */
+  }
+
+  .responsive-flex-row .btn {
+    width: 100%;
+  }
 }

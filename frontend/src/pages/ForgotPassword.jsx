@@ -29,7 +29,7 @@ const ForgotPassword = () => {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div className="glass-panel animate-fade-in" style={{ padding: '3rem', width: '100%', maxWidth: '400px' }}>
+                <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '400px' }}>
                     <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Forgot Password</h2>
 
                     {message && (

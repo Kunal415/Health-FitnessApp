@@ -69,12 +69,12 @@ const Dashboard = () => {
                 </h1>
 
                 {/* Nutrition Call to Action */}
-                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1))', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="glass-panel responsive-flex-row" style={{ marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1))' }}>
                     <div>
                         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🥗 Food Calorie Tracker</h2>
                         <p style={{ color: 'var(--text-muted)' }}>Track your meals, calculate macros, and get personalized nutrition advice.</p>
                     </div>
-                    <Link to="/nutrition" className="btn btn-primary">Open Tracker</Link>
+                    <Link to="/nutrition" className="btn btn-primary btn-inline">Open Tracker</Link>
                 </div>
 
                 {/* Stats Row */}
@@ -93,10 +93,10 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <div className="responsive-flex-row" style={{ marginBottom: '2rem' }}>
                     <h1>Your Activities</h1>
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary btn-inline"
                         onClick={() => setIsFormVisible(!isFormVisible)}
                     >
                         {isFormVisible ? 'Close Form' : '+ Add Workout'}
@@ -105,7 +105,7 @@ const Dashboard = () => {
 
                 {/* Add Form */}
                 {isFormVisible && (
-                    <div className="glass-panel animate-fade-in" style={{ padding: '2rem', marginBottom: '3rem' }}>
+                    <div className="glass-panel animate-fade-in" style={{ marginBottom: '3rem' }}>
                         <form onSubmit={handleAddWorkout} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
                             <div className="form-group" style={{ margin: 0 }}>
                                 <label>Activity Type</label>

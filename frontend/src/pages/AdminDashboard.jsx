@@ -60,15 +60,15 @@ const AdminDashboard = () => {
                 {/* Stats Cards */}
                 {stats && (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-                        <div className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center', borderLeft: '4px solid #38bdf8' }}>
+                        <div className="glass-panel" style={{ textAlign: 'center', borderLeft: '4px solid #38bdf8' }}>
                             <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Accounts</h3>
                             <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{stats.total_users}</p>
                         </div>
-                        <div className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center', borderLeft: '4px solid #818cf8' }}>
+                        <div className="glass-panel" style={{ textAlign: 'center', borderLeft: '4px solid #818cf8' }}>
                             <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Workouts Logged</h3>
                             <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{stats.total_workouts}</p>
                         </div>
-                        <div className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center', borderLeft: '4px solid #f472b6' }}>
+                        <div className="glass-panel" style={{ textAlign: 'center', borderLeft: '4px solid #f472b6' }}>
                             <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Admins</h3>
                             <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{admins.length}</p>
                         </div>
@@ -76,7 +76,7 @@ const AdminDashboard = () => {
                 )}
 
                 {/* Admin Accounts List */}
-                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '3rem' }}>
+                <div className="glass-panel" style={{ marginBottom: '3rem' }}>
                     <h2 style={{ marginBottom: '1.5rem', color: '#fca5a5' }}>🛡️ Admin Accounts</h2>
                     <div style={{ overflowX: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-main)' }}>
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* User Accounts List */}
-                <div className="glass-panel" style={{ padding: '2rem' }}>
+                <div className="glass-panel">
                     <h2 style={{ marginBottom: '1.5rem', color: '#38bdf8' }}>👥 User Accounts</h2>
                     <div style={{ overflowX: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-main)' }}>

@@ -81,10 +81,10 @@ const Profile = () => {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
             <div style={{ flex: 1, padding: '2rem', display: 'flex', justifyContent: 'center' }}>
-                <div style={{ width: '100%', maxWidth: '800px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                <div style={{ width: '100%', maxWidth: '1200px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
 
                     {/* Profile Form */}
-                    <div className="glass-panel" style={{ padding: '2rem' }}>
+                    <div className="glass-panel">
                         <h2 style={{ marginBottom: '1.5rem' }}>Your Profile</h2>
                         {msg && <p style={{ color: msg.includes('Error') ? 'red' : 'green', marginBottom: "10px" }}>{msg}</p>}
                         <form onSubmit={handleSubmit}>
@@ -163,7 +163,7 @@ const Profile = () => {
                     </div>
 
                     {/* Advice Section */}
-                    <div className="glass-panel" style={{ padding: '2rem' }}>
+                    <div className="glass-panel">
                         <h2 style={{ marginBottom: '1.5rem' }}>Personalized Advice</h2>
                         {adviceError && <p style={{ color: 'red', marginBottom: '1rem' }}>{adviceError}</p>}
                         {advice ? (

@@ -28,7 +28,7 @@ const AdminLogin = () => {
             alignItems: 'center',
             background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)'
         }}>
-            <div className="glass-panel animate-fade-in" style={{ padding: '3rem', width: '100%', maxWidth: '400px' }}>
+            <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '400px' }}>
                 <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: '#fca5a5' }}>Admin Portal</h2>
 
                 {error && (
