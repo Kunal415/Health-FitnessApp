@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
+      await login(email, password, rememberMe);
       navigate('/');
     } catch (err) {
       setError('Invalid credentials');
@@ -46,6 +47,47 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', cursor: 'pointer' }}
+              onClick={() => setRememberMe(!rememberMe)}
+            >
+              {/* Custom Circular Checkbox */}
+              <div style={{
+                width: '20px',
+                height: '20px',
+                borderRadius: '50%',
+                border: '2px solid',
+                borderColor: rememberMe ? '#f472b6' : 'var(--text-muted)',
+                background: rememberMe ? 'linear-gradient(to right, #f87171, #f472b6)' : 'transparent',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s',
+                flexShrink: 0
+              }}>
+                {rememberMe && (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="14px" height="14px">
+                    <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </div>
+
+              {/* Text Label */}
+              <span style={{
+                margin: 0,
+                fontSize: '0.9rem',
+                background: rememberMe ? 'linear-gradient(to right, #f87171, #f472b6)' : 'none',
+                WebkitBackgroundClip: rememberMe ? 'text' : 'none',
+                WebkitTextFillColor: rememberMe ? 'transparent' : 'var(--text-muted)',
+                color: rememberMe ? 'transparent' : 'var(--text-muted)',
+                fontWeight: rememberMe ? '600' : 'normal',
+                transition: 'all 0.2s'
+              }}>
+                Remember Me
+              </span>
+            </div>
+
             <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
               Sign In
             </button>

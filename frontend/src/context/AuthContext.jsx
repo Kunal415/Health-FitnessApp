@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkUser = async () => {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("token") || sessionStorage.getItem("token");
             if (token) {
                 try {
                     const { data } = await api.get("/users/me");
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
                 } catch (error) {
                     console.error("Auth check failed", error);
                     localStorage.removeItem("token");
+                    sessionStorage.removeItem("token");
                 }
             }
             setLoading(false);
@@ -26,13 +27,20 @@ export const AuthProvider = ({ children }) => {
         checkUser();
     }, []);
 
-    const login = async (email, password) => {
+    const login = async (email, password, rememberMe = false) => {
         const formData = new FormData();
         formData.append("username", email);
         formData.append("password", password);
 
         const { data } = await api.post("/auth/login", formData);
-        localStorage.setItem("token", data.access_token);
+
+        if (rememberMe) {
+            localStorage.setItem("token", data.access_token);
+            sessionStorage.removeItem("token");
+        } else {
+            sessionStorage.setItem("token", data.access_token);
+            localStorage.removeItem("token");
+        }
 
         // Fetch user details immediately after login
         const userRes = await api.get("/users/me");
@@ -52,6 +60,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
         setUser(null);
     };
 
