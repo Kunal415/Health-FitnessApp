@@ -7,7 +7,7 @@ const AboutApp = () => {
             <Navbar />
             <div className="container animate-fade-in" style={{ paddingTop: '2rem' }}>
                 <h1 style={{ marginBottom: '1.5rem', fontSize: '2.5rem', textAlign: 'center' }}>
-                    Welcome to <span style={{ color: '#38bdf8' }}>FitTrack</span>
+                    Welcome to <span style={{ background: 'linear-gradient(to right, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', color: 'transparent' }}>FitTrack</span>
                 </h1>
 
                 <div className="glass-panel" style={{ marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))' }}>

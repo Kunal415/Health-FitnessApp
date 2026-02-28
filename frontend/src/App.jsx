@@ -12,6 +12,8 @@ import NutritionTracker from './pages/NutritionTracker';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AboutApp from './pages/AboutApp';
+import ExerciseSuggestions from './pages/ExerciseSuggestions';
+import ExerciseTutorials from './pages/ExerciseTutorials';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -70,6 +72,22 @@ function App() {
                         element={
                             <PrivateRoute>
                                 <AboutApp />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/exercises"
+                        element={
+                            <PrivateRoute>
+                                <ExerciseSuggestions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/exercises/:muscleGroup"
+                        element={
+                            <PrivateRoute>
+                                <ExerciseTutorials />
                             </PrivateRoute>
                         }
                     />
