@@ -14,84 +14,105 @@ import AdminDashboard from './pages/AdminDashboard';
 import AboutApp from './pages/AboutApp';
 import ExerciseSuggestions from './pages/ExerciseSuggestions';
 import ExerciseTutorials from './pages/ExerciseTutorials';
+import SplashScreen from './pages/SplashScreen';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <SplashScreen />;
 
     return user ? children : <Navigate to="/login" />;
+};
+
+const AppContent = () => {
+    const { loading } = useAuth();
+    const [showSplash, setShowSplash] = React.useState(true);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowSplash(false);
+        }, 6000); // Wait 6 seconds
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading || showSplash) {
+        return <SplashScreen />;
+    }
+
+    return (
+        <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route
+                path="/"
+                element={
+                    <PrivateRoute>
+                        <Dashboard />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/profile"
+                element={
+                    <PrivateRoute>
+                        <Profile />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/settings"
+                element={
+                    <PrivateRoute>
+                        <Settings />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/nutrition"
+                element={
+                    <PrivateRoute>
+                        <NutritionTracker />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/about"
+                element={
+                    <PrivateRoute>
+                        <AboutApp />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/exercises"
+                element={
+                    <PrivateRoute>
+                        <ExerciseSuggestions />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/exercises/:muscleGroup"
+                element={
+                    <PrivateRoute>
+                        <ExerciseTutorials />
+                    </PrivateRoute>
+                }
+            />
+        </Routes>
+    );
 };
 
 function App() {
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
-                    <Route path="/admin/login" element={<AdminLogin />} />
-                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                    <Route
-                        path="/"
-                        element={
-                            <PrivateRoute>
-                                <Dashboard />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/profile"
-                        element={
-                            <PrivateRoute>
-                                <Profile />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/settings"
-                        element={
-                            <PrivateRoute>
-                                <Settings />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/nutrition"
-                        element={
-                            <PrivateRoute>
-                                <NutritionTracker />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/about"
-                        element={
-                            <PrivateRoute>
-                                <AboutApp />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/exercises"
-                        element={
-                            <PrivateRoute>
-                                <ExerciseSuggestions />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/exercises/:muscleGroup"
-                        element={
-                            <PrivateRoute>
-                                <ExerciseTutorials />
-                            </PrivateRoute>
-                        }
-                    />
-                </Routes>
+                <AppContent />
             </AuthProvider>
         </BrowserRouter>
     );
