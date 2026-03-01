@@ -23,6 +23,7 @@ class User(Base):
     current_diet = Column(String, nullable=True) # e.g. vegan, keto, omnivore, etc.
 
     workouts = relationship("Workout", back_populates="owner")
+    nutrition_logs = relationship("NutritionLog", back_populates="owner")
 
 class Workout(Base):
     __tablename__ = "workouts"
@@ -35,5 +36,18 @@ class Workout(Base):
     analysis = Column(String, nullable=True) # New field for AI analysis
     date = Column(DateTime, default=datetime.utcnow)
     owner_id = Column(Integer, ForeignKey("users.id"))
-
     owner = relationship("User", back_populates="workouts")
+
+class NutritionLog(Base):
+    __tablename__ = "nutrition_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(DateTime, default=datetime.utcnow)
+    calories = Column(Float)
+    protein = Column(Float)
+    carbs = Column(Float)
+    fat = Column(Float)
+    meals_data = Column(String) # JSON string representation
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("User", back_populates="nutrition_logs")

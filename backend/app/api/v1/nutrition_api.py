@@ -1,7 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException, status
+from typing import List
+from sqlalchemy.orm import Session
 from app.schemas import nutrition
 from app.core.food_data import FOOD_DATABASE
-
+from app.api import deps
+from app.models import models
 router = APIRouter()
 
 @router.post("/calculate", response_model=nutrition.DailyAnalysis)
@@ -90,3 +93,24 @@ async def calculate_nutrition(plan: nutrition.DailyPlanInput):
         fat=daily_fat,
         suggestions=suggestions
     )
+
+@router.post("/", response_model=nutrition.NutritionLogResponse)
+def create_nutrition_log(log: nutrition.NutritionLogCreate, db: Session = Depends(deps.get_db), current_user: models.User = Depends(deps.get_current_user)):
+    db_log = models.NutritionLog(**log.dict(), owner_id=current_user.id)
+    db.add(db_log)
+    db.commit()
+    db.refresh(db_log)
+    return db_log
+
+@router.get("/", response_model=List[nutrition.NutritionLogResponse])
+def get_nutrition_logs(skip: int = 0, limit: int = 100, db: Session = Depends(deps.get_db), current_user: models.User = Depends(deps.get_current_user)):
+    return db.query(models.NutritionLog).filter(models.NutritionLog.owner_id == current_user.id).order_by(models.NutritionLog.date.desc()).offset(skip).limit(limit).all()
+
+@router.delete("/{log_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_nutrition_log(log_id: int, db: Session = Depends(deps.get_db), current_user: models.User = Depends(deps.get_current_user)):
+    log = db.query(models.NutritionLog).filter(models.NutritionLog.id == log_id, models.NutritionLog.owner_id == current_user.id).first()
+    if log is None:
+        raise HTTPException(status_code=404, detail="Log not found")
+    db.delete(log)
+    db.commit()
+    return None

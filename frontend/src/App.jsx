@@ -15,6 +15,7 @@ import AboutApp from './pages/AboutApp';
 import ExerciseSuggestions from './pages/ExerciseSuggestions';
 import ExerciseTutorials from './pages/ExerciseTutorials';
 import SplashScreen from './pages/SplashScreen';
+import ChartsPage from './pages/ChartsPage';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -101,6 +102,14 @@ const AppContent = () => {
                 element={
                     <PrivateRoute>
                         <ExerciseTutorials />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/analytics"
+                element={
+                    <PrivateRoute>
+                        <ChartsPage />
                     </PrivateRoute>
                 }
             />

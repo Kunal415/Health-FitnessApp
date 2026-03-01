@@ -48,6 +48,7 @@ const Navbar = () => {
                             <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
                             <Link to="/nutrition" className={`nav-link ${isActive('/nutrition')}`}>Nutrition</Link>
                             <Link to="/exercises" className={`nav-link ${isActive('/exercises')}`}>Exercises</Link>
+                            <Link to="/analytics" className={`nav-link ${isActive('/analytics')}`}>Analytics</Link>
                             <Link to="/profile" className={`nav-link ${isActive('/profile')}`}>Profile</Link>
                             <Link to="/settings" className={`nav-link ${isActive('/settings')}`}>My Account</Link>
                             <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
@@ -89,6 +90,7 @@ const Navbar = () => {
                             <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMenu}>Home</Link>
                             <Link to="/nutrition" className={`nav-link ${isActive('/nutrition')}`} onClick={closeMenu}>Nutrition</Link>
                             <Link to="/exercises" className={`nav-link ${isActive('/exercises')}`} onClick={closeMenu}>Exercises</Link>
+                            <Link to="/analytics" className={`nav-link ${isActive('/analytics')}`} onClick={closeMenu}>Analytics</Link>
                             <Link to="/profile" className={`nav-link ${isActive('/profile')}`} onClick={closeMenu}>Profile</Link>
                             <Link to="/settings" className={`nav-link ${isActive('/settings')}`} onClick={closeMenu}>My Account</Link>
                             <button onClick={handleLogout} className="btn btn-outline" style={{ width: '100%' }}>

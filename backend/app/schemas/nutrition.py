@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from datetime import datetime
 
 class MacroOutput(BaseModel):
     calories: float
@@ -28,3 +29,18 @@ class MealOutput(MacroOutput):
 class DailyAnalysis(MacroOutput):
     meals: List[MealOutput]
     suggestions: List[str]
+
+class NutritionLogCreate(BaseModel):
+    calories: float
+    protein: float
+    carbs: float
+    fat: float
+    meals_data: str
+
+class NutritionLogResponse(NutritionLogCreate):
+    id: int
+    date: datetime
+    owner_id: int
+
+    class Config:
+        orm_mode = True

@@ -93,6 +93,13 @@ const Dashboard = () => {
                     </div>
                 </div>
 
+                {/* Chart Button Instead of Chart */}
+                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                    <Link to="/analytics" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderColor: '#a78bfa', color: '#a78bfa' }}>
+                        📊 View Full Analytics & Insights
+                    </Link>
+                </div>
+
                 <div className="responsive-flex-row" style={{ marginBottom: '2rem' }}>
                     <h1>Your Activities</h1>
                     <button

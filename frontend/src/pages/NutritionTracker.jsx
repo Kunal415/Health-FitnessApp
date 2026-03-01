@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,55 @@ const NutritionTracker = () => {
     const [meals, setMeals] = useState([]);
     const [analysis, setAnalysis] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    // Saved Logs State
+    const [savedLogs, setSavedLogs] = useState([]);
+    const [saving, setSaving] = useState(false);
+
+    const fetchLogs = async () => {
+        try {
+            const { data } = await api.get('/nutrition/');
+            setSavedLogs(data);
+        } catch (error) {
+            console.error('Failed to fetch nutrition logs', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchLogs();
+    }, []);
+
+    const handleSaveLog = async () => {
+        if (!analysis) return;
+        setSaving(true);
+        try {
+            await api.post('/nutrition/', {
+                calories: analysis.calories,
+                protein: analysis.protein,
+                carbs: analysis.carbs,
+                fat: analysis.fat,
+                meals_data: JSON.stringify(analysis.meals)
+            });
+            alert("Nutrition saved to your diary!");
+            fetchLogs();
+            reset();
+        } catch (error) {
+            console.error("Failed to save log", error);
+            alert("Failed to save log.");
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const handleDeleteLog = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this nutrition log?')) return;
+        try {
+            await api.delete(`/nutrition/${id}`);
+            fetchLogs();
+        } catch (error) {
+            console.error('Failed to delete', error);
+        }
+    };
 
     // Step 1: Initialize Meals
     const handleNumMealsSubmit = (e) => {
@@ -84,6 +133,51 @@ const NutritionTracker = () => {
                                 </div>
                                 <button type="submit" className="btn btn-primary">Next: Enter Foods</button>
                             </form>
+                        </div>
+                    )}
+
+                    {/* Show Saved Logs on Step 1 */}
+                    {step === 1 && (
+                        <div style={{ marginTop: '4rem' }} className="animate-fade-in">
+                            <h2 style={{ marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', color: 'var(--primary)' }}>Your Saved Food Diary</h2>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                                {savedLogs.map(log => (
+                                    <div key={log.id} className="glass-panel" style={{ padding: '1.5rem', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
+                                            <h3 style={{ margin: 0, fontSize: '1.2rem' }}>Diary Entry</h3>
+                                            <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                                                {new Date(log.date).toLocaleDateString()}
+                                            </div>
+                                        </div>
+
+                                        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                                            <div style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '0.25rem 0.75rem', borderRadius: '100px', fontSize: '0.9rem', fontWeight: '500' }}>
+                                                🔥 {Math.round(log.calories)} cal
+                                            </div>
+                                            <div style={{ background: 'rgba(129, 140, 248, 0.1)', color: '#818cf8', padding: '0.25rem 0.75rem', borderRadius: '100px', fontSize: '0.9rem', fontWeight: '500' }}>
+                                                🥩 {Math.round(log.protein)}g P
+                                            </div>
+                                        </div>
+
+                                        <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', flex: 1 }}>
+                                            Carbs: {Math.round(log.carbs)}g | Fat: {Math.round(log.fat)}g
+                                        </div>
+
+                                        <button
+                                            onClick={() => handleDeleteLog(log.id)}
+                                            className="btn-danger"
+                                            style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', padding: '0.4rem 0.6rem', borderRadius: '6px', border: 'none', cursor: 'pointer' }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                ))}
+                                {savedLogs.length === 0 && (
+                                    <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '2rem', color: 'var(--text-muted)', background: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}>
+                                        No logs saved yet. Calculate and save your first day!
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
 
@@ -203,8 +297,11 @@ const NutritionTracker = () => {
                                 ))}
                             </div>
 
-                            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-                                <button className="btn btn-primary" onClick={reset}>Calculate Another Day</button>
+                            <div style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                                <button className="btn btn-outline" onClick={reset}>Discard & Calculate Another</button>
+                                <button className="btn btn-primary" onClick={handleSaveLog} disabled={saving} style={{ background: 'linear-gradient(to right, #a78bfa, #818cf8)' }}>
+                                    {saving ? 'Saving...' : '💾 Save to Diary'}
+                                </button>
                             </div>
                         </div>
                     )}
